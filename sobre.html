@@ -180,7 +180,7 @@
             <div class="counter-container mbr-text mbr-fonts-style display-7">
               <ul>
                 <li>Fundada em<strong> 23 de junho de 2000</strong> e sediada em <strong>Garopaba/SC</strong>, a Patrimonial Contabilidade é uma empresa especializada na prestação de serviços profissionais de contabilidade. <strong>Com mais de 25 anos de experiência no mercado</strong>, somos especialistas em terceirização e execução de serviços nas áreas contábil, fiscal, trabalhista, previdenciária e em processos administrativos e empresariais.
-</li><li>Nosso compromisso é oferecer soluções completas e personalizadas para atender empresas de todos os portes – desde grandes corporações até microempreendedores individuais, além de pessoas físicas e jurídicas. Trabalhamos com ética, respeito à legislação vigente e um alto padrão de qualidade em nossos serviços.</li></ul><div><strong style="font-size: 1.4rem;">PATRIMONIAL CONTABILIDADE LDTA</strong><br></div><div><span style="font-size: 1.4rem;">-&gt; Registro no CRC/SC nº 005500/O-5</span><br></div><div>-&gt; CNPJ 03.905.319/0001-54</div>
+</li><li>Nosso compromisso é oferecer soluções completas e personalizadas para atender empresas de todos os portes – desde grandes corporações até microempreendedores individuais, além de pessoas físicas e jurídicas. Trabalhamos com ética, respeito à legislação vigente e um alto padrão de qualidade em nossos serviços.</li></ul><div><strong style="font-size: 1.4rem;">PATRIMONIAL CONTABILIDADE LTDA</strong><br></div><div><span style="font-size: 1.4rem;">-&gt; Registro no CRC/SC nº 005500/O-5</span><br></div><div>-&gt; CNPJ 03.905.319/0001-54</div>
             </div>
           </div>
         </div>
@@ -346,6 +346,35 @@
         </div>
     </div>
 </section>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", function(event) {
+        const href = this.getAttribute("href");
+
+        // Verifica se é um link interno (mesma página ou âncora)
+        if (href.startsWith("#") || (href.includes(".html") && !href.includes("http"))) {
+          event.preventDefault(); // Impede o comportamento padrão
+
+          // Obtém a URL base (sem .html e sem âncoras)
+          let cleanURL = window.location.origin + window.location.pathname.replace(/\.html$/, "");
+
+          // Se for uma âncora (ex: #sobre), apenas rola até lá sem mostrar na URL
+          if (href.startsWith("#")) {
+            history.pushState(null, null, cleanURL);
+            document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+          } 
+          // Se for um link para outra página interna, remove o .html e recarrega a página limpa
+          else {
+            let newPage = href.replace(/\.html$/, ""); // Remove .html
+            history.pushState(null, null, newPage); // Atualiza URL
+            window.location.href = newPage; // Recarrega a nova página
+          }
+        }
+      });
+    });
+  });
+</script>
 
 <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/parallax/jarallax.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/theme/js/script.js"></script>  
   
