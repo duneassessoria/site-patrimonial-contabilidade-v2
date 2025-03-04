@@ -347,35 +347,30 @@
     </div>
 </section>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", function(event) {
-        const href = this.getAttribute("href");
+  window.addEventListener('DOMContentLoaded', () => {
+    // Verifica se há um hash (#) ou .html na URL
+    let currentUrl = window.location.href;
+    const hash = window.location.hash;
 
-        // Verifica se é um link interno (mesma página ou âncora)
-        if (href.startsWith("#") || (href.includes(".html") && !href.includes("http"))) {
-          event.preventDefault(); // Impede o comportamento padrão
+    if (currentUrl.includes(".html")) {
+      // Remove .html da URL
+      currentUrl = currentUrl.replace(".html", "");
+      history.replaceState(null, null, currentUrl);
+    }
 
-          // Obtém a URL base (sem .html e sem âncoras)
-          let cleanURL = window.location.origin + window.location.pathname.replace(/\.html$/, "");
+    if (hash) {
+      // Rola para a seção correspondente ao ID
+      const targetElement = document.querySelector(hash);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
 
-          // Se for uma âncora (ex: #sobre), apenas rola até lá sem mostrar na URL
-          if (href.startsWith("#")) {
-            history.pushState(null, null, cleanURL);
-            document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-          } 
-          // Se for um link para outra página interna, remove o .html e recarrega a página limpa
-          else {
-            let newPage = href.replace(/\.html$/, ""); // Remove .html
-            history.pushState(null, null, newPage); // Atualiza URL
-            window.location.href = newPage; // Recarrega a nova página
-          }
-        }
-      });
-    });
+        // Após rolar, remove o hash da barra de endereços
+        const newUrl = currentUrl.split('#')[0]; // Garante que o hash não permaneça
+        history.replaceState(null, null, newUrl);
+      }
+    }
   });
 </script>
-
 <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/parallax/jarallax.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/theme/js/script.js"></script>  
   
  <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
